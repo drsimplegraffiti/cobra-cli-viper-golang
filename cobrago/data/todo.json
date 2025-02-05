@@ -1,0 +1,10 @@
+{
+  "done_tasks": [
+    "do something",
+    "do something crazy",
+    "do something very crazy"
+  ],
+  "tasks": [
+    "Write Golang CLI App"
+  ]
+}

@@ -1,0 +1,61 @@
+# Binaries and build artifacts
+/bin/
+/obj/
+*.exe
+*.out
+*.test
+*.o
+*.so
+
+# Dependency directories (vendor if using Go Modules)
+vendor/
+Godeps/
+
+# Go workspace related
+pkg/
+go.work
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+*.cache
+
+# Go modules and dependency files
+go.sum
+go.mod
+
+# Test cache
+testdata/
+*.coverprofile
+
+# Docker and CI/CD
+docker-compose.override.yml
+.env
+.env.local
+.env.*.local
+
+# Coverage reports
+coverage.out
+coverage/
+
+# Node.js files (if frontend present)
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Private keys and credentials
+*.pem
+*.key
+*.crt
+*.pfx
