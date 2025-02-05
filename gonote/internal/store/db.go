@@ -30,6 +30,12 @@ func Prepare(ctx context.Context, db DBTX) (*Queries, error) {
 	if q.createNoteStmt, err = db.PrepareContext(ctx, createNote); err != nil {
 		return nil, fmt.Errorf("error preparing query CreateNote: %w", err)
 	}
+	if q.deleteAllCategoriesStmt, err = db.PrepareContext(ctx, deleteAllCategories); err != nil {
+		return nil, fmt.Errorf("error preparing query DeleteAllCategories: %w", err)
+	}
+	if q.deleteAllNotesStmt, err = db.PrepareContext(ctx, deleteAllNotes); err != nil {
+		return nil, fmt.Errorf("error preparing query DeleteAllNotes: %w", err)
+	}
 	if q.deleteCategoryStmt, err = db.PrepareContext(ctx, deleteCategory); err != nil {
 		return nil, fmt.Errorf("error preparing query DeleteCategory: %w", err)
 	}
@@ -67,6 +73,16 @@ func (q *Queries) Close() error {
 	if q.createNoteStmt != nil {
 		if cerr := q.createNoteStmt.Close(); cerr != nil {
 			err = fmt.Errorf("error closing createNoteStmt: %w", cerr)
+		}
+	}
+	if q.deleteAllCategoriesStmt != nil {
+		if cerr := q.deleteAllCategoriesStmt.Close(); cerr != nil {
+			err = fmt.Errorf("error closing deleteAllCategoriesStmt: %w", cerr)
+		}
+	}
+	if q.deleteAllNotesStmt != nil {
+		if cerr := q.deleteAllNotesStmt.Close(); cerr != nil {
+			err = fmt.Errorf("error closing deleteAllNotesStmt: %w", cerr)
 		}
 	}
 	if q.deleteCategoryStmt != nil {
@@ -146,33 +162,37 @@ func (q *Queries) queryRow(ctx context.Context, stmt *sql.Stmt, query string, ar
 }
 
 type Queries struct {
-	db                    DBTX
-	tx                    *sql.Tx
-	createCategoryStmt    *sql.Stmt
-	createNoteStmt        *sql.Stmt
-	deleteCategoryStmt    *sql.Stmt
-	deleteNoteStmt        *sql.Stmt
-	getCategoryByIdStmt   *sql.Stmt
-	getNoteStmt           *sql.Stmt
-	listCategoriesStmt    *sql.Stmt
-	listNotesStmt         *sql.Stmt
-	paginateNotesStmt     *sql.Stmt
-	updateNoteContentStmt *sql.Stmt
+	db                      DBTX
+	tx                      *sql.Tx
+	createCategoryStmt      *sql.Stmt
+	createNoteStmt          *sql.Stmt
+	deleteAllCategoriesStmt *sql.Stmt
+	deleteAllNotesStmt      *sql.Stmt
+	deleteCategoryStmt      *sql.Stmt
+	deleteNoteStmt          *sql.Stmt
+	getCategoryByIdStmt     *sql.Stmt
+	getNoteStmt             *sql.Stmt
+	listCategoriesStmt      *sql.Stmt
+	listNotesStmt           *sql.Stmt
+	paginateNotesStmt       *sql.Stmt
+	updateNoteContentStmt   *sql.Stmt
 }
 
 func (q *Queries) WithTx(tx *sql.Tx) *Queries {
 	return &Queries{
-		db:                    tx,
-		tx:                    tx,
-		createCategoryStmt:    q.createCategoryStmt,
-		createNoteStmt:        q.createNoteStmt,
-		deleteCategoryStmt:    q.deleteCategoryStmt,
-		deleteNoteStmt:        q.deleteNoteStmt,
-		getCategoryByIdStmt:   q.getCategoryByIdStmt,
-		getNoteStmt:           q.getNoteStmt,
-		listCategoriesStmt:    q.listCategoriesStmt,
-		listNotesStmt:         q.listNotesStmt,
-		paginateNotesStmt:     q.paginateNotesStmt,
-		updateNoteContentStmt: q.updateNoteContentStmt,
+		db:                      tx,
+		tx:                      tx,
+		createCategoryStmt:      q.createCategoryStmt,
+		createNoteStmt:          q.createNoteStmt,
+		deleteAllCategoriesStmt: q.deleteAllCategoriesStmt,
+		deleteAllNotesStmt:      q.deleteAllNotesStmt,
+		deleteCategoryStmt:      q.deleteCategoryStmt,
+		deleteNoteStmt:          q.deleteNoteStmt,
+		getCategoryByIdStmt:     q.getCategoryByIdStmt,
+		getNoteStmt:             q.getNoteStmt,
+		listCategoriesStmt:      q.listCategoriesStmt,
+		listNotesStmt:           q.listNotesStmt,
+		paginateNotesStmt:       q.paginateNotesStmt,
+		updateNoteContentStmt:   q.updateNoteContentStmt,
 	}
 }

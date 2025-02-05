@@ -44,8 +44,11 @@ func init() {
 
 	// Define persistent flags for global use
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gonote.yaml)")
-	rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "Author name for copyright attribution")
-
+	viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
+	rootCmd.PersistentFlags().Bool("viper", true, "Use Viper for configuration")
+	rootCmd.PersistentFlags().StringP("author", "a", "Abayomi Ogunnusi", "Author name for copyright attribution")
+	viper.SetDefault("author", "Abayomi Ogunnusi <abayomiogunnusi@gmail.com>")
+	viper.SetDefault("license", "apache")
 
 	// Define local flags
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")

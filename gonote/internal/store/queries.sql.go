@@ -47,6 +47,24 @@ func (q *Queries) CreateNote(ctx context.Context, arg CreateNoteParams) (Note, e
 	return i, err
 }
 
+const deleteAllCategories = `-- name: DeleteAllCategories :exec
+DELETE FROM categories
+`
+
+func (q *Queries) DeleteAllCategories(ctx context.Context) error {
+	_, err := q.exec(ctx, q.deleteAllCategoriesStmt, deleteAllCategories)
+	return err
+}
+
+const deleteAllNotes = `-- name: DeleteAllNotes :exec
+DELETE FROM notes
+`
+
+func (q *Queries) DeleteAllNotes(ctx context.Context) error {
+	_, err := q.exec(ctx, q.deleteAllNotesStmt, deleteAllNotes)
+	return err
+}
+
 const deleteCategory = `-- name: DeleteCategory :exec
 DELETE FROM categories WHERE id = $1
 `

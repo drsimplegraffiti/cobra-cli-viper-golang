@@ -52,3 +52,9 @@ WHERE
     AND ($2 = '' OR n.title ILIKE '%' || $2 || '%')
 ORDER BY n.created_at DESC
 LIMIT $3 OFFSET $4;
+
+-- name: DeleteAllNotes :exec
+DELETE FROM notes;
+
+-- name: DeleteAllCategories :exec
+DELETE FROM categories;

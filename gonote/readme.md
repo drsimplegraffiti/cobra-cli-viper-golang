@@ -1,6 +1,11 @@
 ### install cobra cli
 ![alt text](image.png)
 
+### run the root
+```bash
+go run main.go
+```
+
 
 #### install packages
 ```bash
@@ -107,7 +112,7 @@ go run main.go view --id 1
 
 go build -o gonote main.go
 ```shell
- ./gonote add -n "Linux"
+ ./gonote add -n "Linux"  or ./gonote add 
  ./gonote add -t "wa" -x "limbo" -c 1
  ./gonote list
   ./gonote paginate --category "Work" --title "Meeting" --page 1 --pageSize 5
