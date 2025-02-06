@@ -103,7 +103,7 @@ sqlc generate
 
 ### Run
 ```bash
-go run main.go category add --name "Work"
+go run main.go category add --name "Work" or ./gonote add category 
 go run main.go add --title "Meeting Notes" --content "Gamey" --category 1
 go run main.go update --id 1 --content "Updated content"
 go run main.go list
